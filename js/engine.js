@@ -29,6 +29,7 @@ var Engine = (function(global) {
     canvas.height = 606;
     doc.body.appendChild(canvas);
 
+
     /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.
      */
@@ -90,10 +91,12 @@ var Engine = (function(global) {
      * the data/properties related to  the object. Do your drawing in your
      * render methods.
      */
+
     function updateEntities(dt) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
         });
+
         player.update();
     }
 
@@ -109,11 +112,11 @@ var Engine = (function(global) {
          */
         var rowImages = [
                 'images/water-block.png',   // Top row is water
-                'images/stone-block.png',   // Row 1 of 3 of stone
-                'images/stone-block.png',   // Row 2 of 3 of stone
-                'images/stone-block.png',   // Row 3 of 3 of stone
-                'images/grass-block.png',   // Row 1 of 2 of grass
-                'images/grass-block.png'    // Row 2 of 2 of grass
+                'images/stone-block.png',   // Row 1 of 4 of stone
+                'images/stone-block.png',   // Row 2 of 4 of stone
+                'images/stone-block.png',   // Row 3 of 4 of stone
+                'images/stone-block.png',   // Row 4 of 4 of grass
+                'images/grass-block.png'    // Row 1 of 1 of grass
             ],
             numRows = 6,
             numCols = 5,
@@ -161,6 +164,15 @@ var Engine = (function(global) {
      */
     function reset() {
         // noop
+        /*
+        ctx.fillText('Welcome to Bugger!', 50,100);
+        ctx.fillText('Use the arrow keys to move your player', 20, 150);
+        ctx.fillText('across the road to the magic water.', 40, 200);
+        ctx.fillText('But watch out for those nasty buggers!', 30, 250);
+        ctx.fillText('Choose your player to begin', 45, 300);
+        ctx.drawImage('images/char-boy.png', 100, 400);
+        ctx.drawImage('images/char-pink-girl.png', 300, 400);
+*/
     }
 
     /* Go ahead and load all of the images we know we're going to need to
@@ -172,7 +184,9 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-boy.png'
+        'images/char-boy.png',
+        'images/char-pink-girl.png',
+        'images/Star.png'
     ]);
     Resources.onReady(init);
 
