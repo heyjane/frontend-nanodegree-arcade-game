@@ -17,26 +17,17 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    if (level === 1) {
-        dt=dt*1.2
-    }
-    if (level === 2) {
-        dt=dt*1.6
-    }
-    if (level === 3) {
-        dt = dt*2
-    }
     if (this.y === 60) {
-        this.x += 150*dt;
+        this.x += 150*dt*level;
     }
     if (this.y === 145) {
-        this.x += 300*dt;
+        this.x += 300*dt*level/3;
     }
     if (this.y === 230) {
-        this.x += 200*dt;
+        this.x += 200*dt*level/2;
     }
     if (this.y === 310) {
-        this.x += 170*dt;
+        this.x += 170*dt*level;
     }
 
     if (this.x > 500) {
@@ -55,9 +46,9 @@ Enemy.prototype.update = function(dt) {
 Enemy.prototype.collisionDetector = function(enemy, player) {
     if ((player.top > enemy.top && player.top < enemy.bottom) &&
         (player.left < enemy.right && player.left > enemy.left)) {
-
-            player.x = 200;
-            player.y = 425
+            state = "collided";
+            lives--;
+            GameReset();
         }
 }
 
@@ -72,7 +63,8 @@ Enemy.prototype.render = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 var Player = function(x,y) {
-    this.sprite = 'images/char-boy.png';
+    this.sprite = 'images/char-cat-girl.png';
+    this.lifeSprite = 'images/life-heart.png';
     this.x = x;
     this.y = y;
 }
@@ -82,23 +74,42 @@ Player.prototype.update = function() {
     this.bottom = this.y + 70;
     this.left = this.x + 30;
     this.right = this.x + 70;
+    if (level === 1) {
+        this.sprite = 'images/char-cat-girl.png';
+    }
+    if (level === 2) {
+        this.sprite = 'images/char-pink-girl.png';
+    }
+
+    if (level === 3) {
+        this.sprite = 'images/char-princess-girl.png';
+    }
 
     if (this.y === -5) {
-        level = level +1;
-        this.x = 200;
-        this.y = 425;
+        level ++;
+        lives ++;
+        state = "levelUp"
+        GameReset();
     }
 }
 
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-
+    if (lives === 0) {
+        level = 0;
+        ctx.fillText("You LOST!", 160, 200);
+        ctx.fillText("Press the spacebar", 70, 300);
+        ctx.fillText("to play again", 150, 340);
+    }
     this.text = "Level " + level;
     ctx.font = "48px bold";
-    if (level < 4) {
-        ctx.fillText(this.text, 180, 100)
+    if (level < 4 && level > 0) {
+        ctx.fillText(this.text, 340, 100);
+        for (i=0; i<lives; i++) {
+            ctx.drawImage(Resources.get(this.lifeSprite), (37*i), 50);
+        }
     }
-    else {
+    else if (level == 4) {
         ctx.fillText("You WON!", 160, 200);
         ctx.fillText("Press the spacebar", 70, 300);
         ctx.fillText("to play again", 150, 340);
@@ -124,13 +135,20 @@ Player.prototype.handleInput = function(key) {
         this.y += 86;
     }
     if (key === "space") {
-        init();
+        level = 1;
+        lives = 3;
+        GameReset();
     }
 }
+var GameReset = function() {
+    player.x = 200;
+    player.y = 425;
+}
 
+var state;
 var lives = 3;
-var level = 0;
-var player = new Player(200,425, 0);
+var level = 1;
+var player = new Player(200,425);
 var allEnemies = [
     new Enemy(0,60),
     new Enemy(0,145),
