@@ -156,23 +156,14 @@ var Engine = (function(global) {
         });
 
         player.render();
+
     }
 
     /* This function does nothing but it could have been a good place to
      * handle game reset states - maybe a new game menu or a game over screen
      * those sorts of things. It's only called once by the init() method.
      */
-    function reset() {
-        // noop
-        /*
-        ctx.fillText('Welcome to Bugger!', 50,100);
-        ctx.fillText('Use the arrow keys to move your player', 20, 150);
-        ctx.fillText('across the road to the magic water.', 40, 200);
-        ctx.fillText('But watch out for those nasty buggers!', 30, 250);
-        ctx.fillText('Choose your player to begin', 45, 300);
-        ctx.drawImage('images/char-boy.png', 100, 400);
-        ctx.drawImage('images/char-pink-girl.png', 300, 400);
-*/
+    function reset(level) {
     }
 
     /* Go ahead and load all of the images we know we're going to need to
@@ -185,8 +176,6 @@ var Engine = (function(global) {
         'images/grass-block.png',
         'images/enemy-bug.png',
         'images/char-boy.png',
-        'images/char-pink-girl.png',
-        'images/Star.png'
     ]);
     Resources.onReady(init);
 

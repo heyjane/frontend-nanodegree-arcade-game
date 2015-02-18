@@ -17,6 +17,15 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+    if (level === 1) {
+        dt=dt*1.2
+    }
+    if (level === 2) {
+        dt=dt*1.6
+    }
+    if (level === 3) {
+        dt = dt*2
+    }
     if (this.y === 60) {
         this.x += 150*dt;
     }
@@ -46,6 +55,7 @@ Enemy.prototype.update = function(dt) {
 Enemy.prototype.collisionDetector = function(enemy, player) {
     if ((player.top > enemy.top && player.top < enemy.bottom) &&
         (player.left < enemy.right && player.left > enemy.left)) {
+
             player.x = 200;
             player.y = 425
         }
@@ -72,12 +82,29 @@ Player.prototype.update = function() {
     this.bottom = this.y + 70;
     this.left = this.x + 30;
     this.right = this.x + 70;
-}
 
+    if (this.y === -5) {
+        level = level +1;
+        this.x = 200;
+        this.y = 425;
+    }
+}
 
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+
+    this.text = "Level " + level;
+    ctx.font = "48px bold";
+    if (level < 4) {
+        ctx.fillText(this.text, 180, 100)
+    }
+    else {
+        ctx.fillText("You WON!", 160, 200);
+        ctx.fillText("Press the spacebar", 70, 300);
+        ctx.fillText("to play again", 150, 340);
+    }
 }
+
 
 Player.prototype.handleInput = function(key) {
 //add code to handle key inputs to move player
@@ -96,9 +123,14 @@ Player.prototype.handleInput = function(key) {
     if (key === "down" && this.y < 400) {
         this.y += 86;
     }
+    if (key === "space") {
+        init();
+    }
 }
 
-var player = new Player(200,425);
+var lives = 3;
+var level = 0;
+var player = new Player(200,425, 0);
 var allEnemies = [
     new Enemy(0,60),
     new Enemy(0,145),
@@ -106,7 +138,6 @@ var allEnemies = [
     new Enemy(300,60),
     new Enemy(0, 310)
     ];
-
 
 
 // Now instantiate your objects.
@@ -119,6 +150,7 @@ var allEnemies = [
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
     var allowedKeys = {
+        32: 'space',
         37: 'left',
         38: 'up',
         39: 'right',
