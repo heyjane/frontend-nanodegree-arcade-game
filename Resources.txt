@@ -14,6 +14,7 @@ I used the following resources to complete project 3:
 
 - Used Google searches to find resources on HTML5 canvas, game features (like movement and collisions), sprites, and deeper dive on related technical info.  Here are some of the most helpful sites I found (in addition to the usual suspects like
 StackOverflow):
+
 http://www.gaminglogy.com/tutorial/collision-detection/
 
 http://www.html5gamedevs.com/topic/1830-best-way-for-random-movement-of-group-objects/
