@@ -115,6 +115,7 @@ var Engine = (function(global) {
                 'images/stone-block.png',   // Row 1 of 4 of stone
                 'images/stone-block.png',   // Row 2 of 4 of stone
                 'images/stone-block.png',   // Row 3 of 4 of stone
+        //NOTE:  I added another row of stone to make the game more interesting.
                 'images/stone-block.png',   // Row 4 of 4 of grass
                 'images/grass-block.png'    // Row 1 of 1 of grass
             ],
@@ -177,6 +178,7 @@ var Engine = (function(global) {
         'images/grass-block.png',
         'images/enemy-bug.png',
         'images/char-boy.png',
+    //I added some additional sprites and created some new image files.
         'images/life-heart.png',
         'images/char-cat-girl.png',
         'images/char-princess-girl.png',
