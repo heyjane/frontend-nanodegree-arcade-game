@@ -1,5 +1,5 @@
 // Enemies our player must avoid.
-Parameters: x,y, initial canvas locations for enemy sprite.
+//Parameters: x,y, initial canvas locations for enemy sprite.
 var Enemy = function(x,y) {
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
