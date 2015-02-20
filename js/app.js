@@ -1,4 +1,5 @@
 // Enemies our player must avoid.
+Parameters: x,y, initial canvas locations for enemy sprite.
 var Enemy = function(x,y) {
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
@@ -44,6 +45,8 @@ Enemy.prototype.update = function(dt) {
 
 // Check for collisions.  If collision is detected, decrease
 // player's lives by one and reset the player to the starting point.
+// Parameters:  enemy, player (enemy boundaries and player
+// boundaries for collision detection).
 Enemy.prototype.collisionDetector = function(enemy, player) {
     if ((player.top > enemy.top && player.top < enemy.bottom) &&
         (player.left < enemy.right && player.left > enemy.left)) {
@@ -67,6 +70,7 @@ Enemy.prototype.render = function() {
 // fit the storyline.  Player lives are shown by hearts.  A player
 // starts with three lives.  A player loses one life for each
 // enemy collision.  A player gains one life for each level up.
+// Parameters: x,y, coordinates of player location.
 var Player = function(x,y) {
     this.sprite1 = 'images/char-boy.png';
     this.sprite2 = 'images/char-pink-girl.png';
@@ -163,9 +167,10 @@ Player.prototype.menuDisplays = function() {
 }
 
 // Handle key inputs to move the player or restart the game.
-// Parameter: state, checks if game is in play mode and
+// State variable checks if game is in play mode and
 // disables player movement key inputs if game is over.  The
 // space key remains functional so game can be reset at any time.
+// Parameter:  key, variable which identifies player input keys.
 Player.prototype.handleInput = function(key) {
     if (state === "play") {
         if (key === "left" && this.x > 80) {
